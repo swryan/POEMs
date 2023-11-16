@@ -42,12 +42,12 @@ def update_integrated(poem_id):
                 if lu.startswith('STATUS:'):
                     in_status = True
                     print(line, file=poem_md, end='')
-                elif in_status:
+                elif in_status and '[' in line:
                     left = line[:line.find('[')]
                     right = line[line.find(']'):]
                     if left and right:
                         if lu.endswith('INTEGRATED'):
-                            print(f'{left}[X{right}', file=poem_md, end='')
+                            print(f'{left}[x{right}', file=poem_md, end='')
                             in_status = False
                             success = True
                         else:
