@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import sys
-from .update_readme import update_readme
+import update_readme
 
 
 PASS = 0
@@ -60,7 +60,7 @@ def update_integrated(poem_id):
         return FAIL
 
     if success:
-        return update_readme()
+        return update_readme.update_readme()
     else:
         return FAIL
 
