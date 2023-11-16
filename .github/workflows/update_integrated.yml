@@ -1,0 +1,37 @@
+# This workflow updates the status of a POEM to 'Integrated'
+
+name: Update POEM status to Integrated
+
+on:
+  # workflow_dispatch allows to run your workflow manually
+  workflow_dispatch:
+    inputs:
+      poem_integrated:
+        description: 'ID of POEM to be marked as Integrated'
+        required: true
+        default: 'warning'
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.11
+
+    - name: Run script
+      run: python ./.github/scripts/update_integrated.py ${{ github.event.inputs.poem_integrated }}
+
+    - name: Commit and push if changed
+      run: |
+        git add .
+        git diff
+        git config --global user.email "github-action@github.com"
+        git config --global user.name "GitHub Action"
+        git commit -m "Mark POEM_${{ github.event.inputs.poem_integrated }} as Integrated" -a || echo "No changes to commit"
+        git push
