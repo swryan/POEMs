@@ -33,6 +33,7 @@ jobs:
         git diff
         git config --global user.email "github-action@github.com"
         git config --global user.name "GitHub Action"
-        POEM_ID="$(printf '%03d' ${{ github.event.inputs.poem_integrated }})"
+        POEM_NO="$(echo ${{ github.event.inputs.poem_integrated }} | sed 's/^0*//')"
+        POEM_ID="$(printf '%03d' $POEM_NO)"
         git commit -m "Mark POEM_$POEM_ID as Integrated" -a || echo "No changes to commit"
         git push
