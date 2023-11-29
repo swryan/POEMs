@@ -47,6 +47,7 @@ def update_integrated(poem_id):
                     right = line[line.find(']'):]
                     if left and right:
                         if lu.endswith('INTEGRATED'):
+                            print(f"Updating status in '{poem_md}' to Integrated")
                             print(f'{left}[x{right}', file=poem_md, end='')
                             in_status = False
                             success = True
