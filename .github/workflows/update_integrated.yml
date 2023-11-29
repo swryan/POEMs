@@ -3,7 +3,6 @@
 name: Update POEM status to Integrated
 
 on:
-  # workflow_dispatch allows to run your workflow manually
   workflow_dispatch:
     inputs:
       poem_integrated:
@@ -11,7 +10,6 @@ on:
         required: true
         default: 0
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   integrate_poem:
     runs-on: ubuntu-latest
