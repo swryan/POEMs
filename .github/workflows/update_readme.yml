@@ -10,6 +10,8 @@ on:
   # workflow_dispatch allows to run your workflow manually
   workflow_dispatch:
 
+permissions: {}
+
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   build:

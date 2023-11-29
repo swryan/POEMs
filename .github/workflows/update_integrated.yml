@@ -10,6 +10,8 @@ on:
         required: true
         default: 0
 
+permissions: {}
+
 jobs:
   integrate_poem:
     runs-on: ubuntu-latest
