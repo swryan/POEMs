@@ -25,15 +25,26 @@ jobs:
         python-version: 3.11
 
     - name: Run script
-      run: python ./.github/scripts/update_integrated.py ${{ github.event.inputs.poem_integrated }}
+      env:
+        POEM_ID: ${{ github.event.inputs.poem_integrated }}
+      run: python ./.github/scripts/update_integrated.py $POEM_ID
 
     - name: Commit and push if changed
+      env:
+        POEM_ID: ${{ github.event.inputs.poem_integrated }}
       run: |
         git add .
         git diff
         git config --global user.email "github-action@github.com"
         git config --global user.name "GitHub Action"
-        POEM_NO="$(echo ${{ github.event.inputs.poem_integrated }} | sed 's/^0*//')"
+        POEM_NO="$(echo $POEM_ID | sed 's/^0*//')"
         POEM_ID="$(printf '%03d' $POEM_NO)"
         git commit -m "Mark POEM_$POEM_ID as Integrated" -a || echo "No changes to commit"
         git push
+
+    - name: Notify slack
+      uses: act10ns/slack@v2.0.0
+      with:
+        webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+        status: ${{ job.status }}
+      if: always()
