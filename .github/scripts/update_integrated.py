@@ -24,7 +24,7 @@ def update_integrated(poem_id):
     """
     filename = f'POEM_{poem_id:0>3}.md'
 
-    print(f'updating POEM_{filename}')
+    print(f'updating {filename}')
 
     try:
         with open(filename, 'r') as poem_md:
@@ -47,7 +47,6 @@ def update_integrated(poem_id):
                     right = line[line.find(']'):]
                     if left and right:
                         if lu.endswith('INTEGRATED'):
-                            print(f"Updating status in '{poem_md}' to Integrated")
                             print(f'{left}[x{right}', file=poem_md, end='')
                             in_status = False
                             success = True
@@ -61,6 +60,7 @@ def update_integrated(poem_id):
         return FAIL
 
     if success:
+        print(f"Updated status in '{poem_md}' to Integrated")
         return update_readme.update_readme()
     else:
         return FAIL
