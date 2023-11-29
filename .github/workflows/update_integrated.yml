@@ -52,7 +52,7 @@ jobs:
         message: |
           Status of $POEM_ID transitioned to `Integrated`.
           ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-        if: success()
+      if: success()
 
     - name: Notify slack
       uses: act10ns/slack@v2.0.0
@@ -64,4 +64,4 @@ jobs:
         message: |
           Status of $POEM_ID WAS NOT transitioned to `Integrated`.
           ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-        if: failure()
+      if: failure()
